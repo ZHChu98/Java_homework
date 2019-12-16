@@ -18,12 +18,12 @@ public class Basic {
     // Read file and store the frequencies attached to each word appeared
     private void readFile() {
         try {
-            String path = System.getProperty("java.class.path") + "\\input.txt";
+            String path = System.getProperty("java.class.path") + "/input.txt";
             System.out.println("reading file at: " + path);
             BufferedReader in = new BufferedReader(new FileReader(path));
-            String strline = null;
-            while ((strline = in.readLine()) != null) {
-                final String[] words = strline.split(" ");
+            String strLine = null;
+            while ((strLine = in.readLine()) != null) {
+                final String[] words = strLine.split(" ");
                 for (String word : words) {
                     if (dataMap.get(word) != null) {
                         dataMap.put(word, dataMap.get(word) + 1);
@@ -83,12 +83,12 @@ public class Basic {
         }
     }
     
-    // Unidirectitonal partition: left -> right
+    // Mono-direction partition: left -> right
     private int partition(int low, int high) {
         int i = low;
         Word tmp;
         for (int j = low + 1; j <= high; j++) {
-            if (wordcmp(j, low) == true) {
+            if (wordCmp(j, low) == true) {
                 i++;
                 if (i != j) {
                     tmp = data.get(j);
@@ -104,7 +104,7 @@ public class Basic {
     }
 
     // compare two words' priority, return true : data[i] has higher priority
-    private boolean wordcmp(int i, int j) {
+    private boolean wordCmp(int i, int j) {
         Word w1 = data.get(i);
         Word w2 = data.get(j);
         if (w1.freq > w2.freq) {
