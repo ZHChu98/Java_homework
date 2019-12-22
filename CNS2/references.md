@@ -2,7 +2,7 @@
 
 单纯地怕忘了...
 
-## 
+## docker image
 
 sudo docker pull yiping999/ub-jdk8:1.1
 
