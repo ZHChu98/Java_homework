@@ -1,9 +1,9 @@
 #!/bin/bash
 sudo docker --version
 
-if [ $1 = "file" ]
+if [ $1 = "container" ]
 then
-	echo "delete intermediate files"
+	echo "delete container files"
 	for i in `seq 3`
 	do
 	{
@@ -11,6 +11,10 @@ then
 	}&
 	done
 	wait
+elif [ $1 = "file" ]
+then
+	echo "delete host files"
+	rm -rf Sx RM result.txt time.txt
 elif [ $1 = "worker" ]
 then
 	echo "stop containers"

@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
+import java.text.SimpleDateFormat;
 
-public class Basic {
+public class BASIC {
     private Map<String, Integer> dataMap = new HashMap<String, Integer>();
     private List<Word> data = new ArrayList<Word>();
 
@@ -16,25 +17,28 @@ public class Basic {
     }
 
     // Read file and store the frequencies attached to each word appeared
-    private void readFile() {
+    private void readFile(String dir) {
         try {
-            String path = System.getProperty("java.class.path") + "/input.txt";
-            System.out.println("reading file at: " + path);
-            BufferedReader in = new BufferedReader(new FileReader(path));
-            String strLine = null;
-            while ((strLine = in.readLine()) != null) {
-                final String[] words = strLine.split(" ");
-                for (String word : words) {
-                    if (dataMap.get(word) != null) {
-                        dataMap.put(word, dataMap.get(word) + 1);
-                    } else {
-                        dataMap.put(word, 1);
+            File[] files = new File(dir).listFiles();
+            BufferedReader br;
+            for (File file : files) {
+                br = new BufferedReader(new FileReader(file));
+                String strLine = null;
+                while ((strLine = br.readLine()) != null) {
+                    strLine = strLine.replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1").replaceAll("^((\r\n)|\n)", "");
+                    if (strLine.length() == 0) {
+                        continue;
+                    }
+                    final String[] words = strLine.split(" ");
+                    for (String word : words) {
+                        if (dataMap.get(word) != null) {
+                            dataMap.put(word, dataMap.get(word) + 1);
+                        } else {
+                            dataMap.put(word, 1);
+                        }
                     }
                 }
             }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,13 +47,6 @@ public class Basic {
         while (iter.hasNext()) {
             Map.Entry<String, Integer> entry = iter.next();
             data.add(new Word(entry.getKey(), entry.getValue().intValue()));
-        }
-    }
-    
-    // Display all words and corresponding frequencies
-    private void display() {
-        for (Word w : data) {
-            System.out.println(w.word + '\t' + w.freq);
         }
     }
 
@@ -115,10 +112,35 @@ public class Basic {
         return false;
     }
 
+    // Display all words and corresponding frequencies
+    private void output() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("result.txt").getAbsolutePath()));
+            for (Word w : data) {
+                bw.write(w.word + '\t' + w.freq + '\n');
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void recordTime(String msg) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("time.txt").getAbsolutePath(), true));
+            bw.write(msg + new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()) + '\n');
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        Basic task = new Basic();
-        task.readFile();
-        task.sort();
-        task.display();
+        BASIC basic = new BASIC();
+        basic.recordTime("BASIC start at\t");
+        basic.readFile(args[0]);
+        basic.sort();
+        basic.output();
+        basic.recordTime("BASIC end at\t");
     }
 }

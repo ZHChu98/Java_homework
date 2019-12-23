@@ -47,7 +47,7 @@ public class ClientProgram implements OnSocketListener {
             System.out.println("User Register successfully");
         } else if (command[2].equals("/TargetUserOccupied")) {
             System.out.println("Target user is occupied, please try later");
-        } else if (command[2].equals("/WrondInstruction")) {
+        } else if (command[2].equals("/WrongInstruction")) {
             System.out.println("Wrong instruction");
         } else {
             System.out.println("Unknown command : " + msg);
