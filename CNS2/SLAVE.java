@@ -12,26 +12,18 @@ public class SLAVE {
         String id = args[0];
         if (args[1].equals("0")) {
             System.out.println("test mode");
-            String str1 = "hello";
-            String str2 = "fss";
-            System.out.println(str1.compareTo("hellg"));
-            System.out.println(str2.compareTo("h"));
             try {
-                String str = "hello, world!\nnice to meet you!\n";
-                File file = new File("HelloWorld.txt");
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
-                BufferedWriter bw = new BufferedWriter(fileWriter);
-                bw.write(str);
-                bw.close();
-                System.out.println("finish");
+                new ProcessBuilder("sh", "cmdTest.sh").start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            
         } else if (args[1].equals("1")) {
             try {
+                File SMPath = new File("SM");
+                if (!SMPath.exists()) {
+                    SMPath.mkdir();
+                }
                 BufferedWriter bw1 = new BufferedWriter(new FileWriter(new File("SM/SM1"+id+".txt").getAbsolutePath()));
                 BufferedWriter bw2 = new BufferedWriter(new FileWriter(new File("SM/SM2"+id+".txt").getAbsolutePath()));
                 BufferedWriter bw3 = new BufferedWriter(new FileWriter(new File("SM/SM3"+id+".txt").getAbsolutePath()));
@@ -54,6 +46,10 @@ public class SLAVE {
                 bw3.close();
                 br.close();
 
+                File SSPath = new File("SS");
+                if (!SSPath.exists()) {
+                    SSPath.mkdir();
+                }
                 new ProcessBuilder("scp", "SM/SM1"+id+".txt", "worker1:/tmp/SS").start();
                 new ProcessBuilder("scp", "SM/SM2"+id+".txt", "worker2:/tmp/SS").start();
                 new ProcessBuilder("scp", "SM/SM3"+id+".txt", "worker3:/tmp/SS").start();
