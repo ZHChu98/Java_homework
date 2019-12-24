@@ -26,6 +26,13 @@ for i in `seq 3`
 do
 {
 	sudo docker exec -i worker$i /bin/bash -c "source ~/.bashrc && cd tmp && java -jar SLAVE.jar $i 2"
+}&
+done
+wait
+
+for i in `seq 3`
+do
+{
 	sudo docker cp worker$i:/tmp/SS/RM$i.txt ~/java/Java_homework/CNS2/RM
 }&
 done

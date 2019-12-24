@@ -11,11 +11,11 @@ then
 	}&
 	done
 	wait
-elif [ $1 = "file" ]
+elif [ $1 = "host" ]
 then
 	echo "delete host files"
-	rm -rf Sx RM result.txt time.txt
-elif [ $1 = "worker" ]
+	rm -rf Sx RM result.txt
+elif [ $1 = "stop" ]
 then
 	echo "stop containers"
 	for i in `seq 3`

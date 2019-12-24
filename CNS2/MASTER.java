@@ -23,6 +23,10 @@ public class MASTER {
     
     private void distribute(String dir) {
         try {
+            File SxDir = new File("Sx");
+            if (!SxDir.exists()) {
+                SxDir.mkdir();
+            }
             File[] files = new File(dir).listFiles();
             BufferedReader br;
             BufferedWriter bw1 = new BufferedWriter(new FileWriter(new File("Sx/Sx1.txt").getAbsolutePath()));
@@ -50,7 +54,7 @@ public class MASTER {
             bw1.close();
             bw2.close();
             bw3.close();
-            new ProcessBuilder("bash", "deploy.sh").start();
+            new ProcessBuilder("bash", "deploy.sh").inheritIO().start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,27 +152,17 @@ public class MASTER {
         }
     }
 
-    private void recordTime(String msg) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("time.txt").getAbsolutePath(), true));
-            bw.write(msg + new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()) + '\n');
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) {
         MASTER master = new MASTER();
         if (args.length == 1) {
-            master.recordTime("MASTER start at\t");
+            System.out.println(new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
             master.distribute(args[0]);
         } else {
-            System.out.println("state 2");
             master.collect();
             master.sort();
             master.output();
-            master.recordTime("MASTER end at\t");
+            System.out.println(new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
         }
     }
 }

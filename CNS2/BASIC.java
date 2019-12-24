@@ -125,22 +125,12 @@ public class BASIC {
         }
     }
 
-    private void recordTime(String msg) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("time.txt").getAbsolutePath(), true));
-            bw.write(msg + new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()) + '\n');
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
         BASIC basic = new BASIC();
-        basic.recordTime("BASIC start at\t");
+        System.out.println(new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
         basic.readFile(args[0]);
         basic.sort();
         basic.output();
-        basic.recordTime("BASIC end at\t");
+        System.out.println(new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
     }
 }

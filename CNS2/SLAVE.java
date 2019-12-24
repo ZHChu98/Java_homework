@@ -75,7 +75,6 @@ public class SLAVE {
             Iterator<Map.Entry<String, Integer>> iter = dataMap.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry<String, Integer> entry = iter.next();
-                System.out.println(entry.getKey() + ' ' + entry.getValue());
                 bw.write(entry.getKey() + ' ' + Integer.toString(entry.getValue()) + '\n');
             }
             bw.close();
