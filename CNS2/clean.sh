@@ -7,6 +7,7 @@ then
 	for i in `seq 3`
 	do
 	{
+		sudo docker start worker$i
 		sudo docker exec -i worker$i /bin/bash -c "cd tmp && rm -r SLAVE.jar Sx$i.txt SM SS"
 	}&
 	done

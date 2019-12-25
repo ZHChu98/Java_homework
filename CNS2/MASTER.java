@@ -1,4 +1,3 @@
-import java.lang.ProcessBuilder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -54,10 +53,10 @@ public class MASTER {
             bw1.close();
             bw2.close();
             bw3.close();
-            new ProcessBuilder("bash", "deploy.sh").inheritIO().start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("master: finish file arrangement");
     }
 
     private void collect() {

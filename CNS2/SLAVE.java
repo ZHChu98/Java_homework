@@ -14,7 +14,7 @@ public class SLAVE {
         this.id = id;
     }
 
-    private void readFile() {
+    private void map() {
         try {
             BufferedWriter bw1 = new BufferedWriter(new FileWriter(new File("SM/SM1"+id+".txt").getAbsolutePath()));
             BufferedWriter bw2 = new BufferedWriter(new FileWriter(new File("SM/SM2"+id+".txt").getAbsolutePath()));
@@ -40,16 +40,23 @@ public class SLAVE {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("worker" + this.id + ": finish mapping");
     }
 
     private void transferSM() {
         try {
-            new ProcessBuilder("scp", "SM/SM1"+id+".txt", "worker1:/tmp/SS").start();
-            new ProcessBuilder("scp", "SM/SM2"+id+".txt", "worker2:/tmp/SS").start();
-            new ProcessBuilder("scp", "SM/SM3"+id+".txt", "worker3:/tmp/SS").start();
+            Process p1 = new ProcessBuilder("scp", "SM/SM1"+id+".txt", "worker1:/tmp/SS").start();
+            Process p2 = new ProcessBuilder("scp", "SM/SM2"+id+".txt", "worker2:/tmp/SS").start();
+            Process p3 = new ProcessBuilder("scp", "SM/SM3"+id+".txt", "worker3:/tmp/SS").start();
+            p1.waitFor();
+            p2.waitFor();
+            p3.waitFor();
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("worker" + this.id + ": finish transferring SM");
     }
 
     private void reduceSM() {
@@ -81,6 +88,7 @@ public class SLAVE {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("worker" + this.id + ": finish reducing");
     }
 
     public static void main(String[] args) {
@@ -88,7 +96,7 @@ public class SLAVE {
         if (args[1].equals("0")) {
             System.out.println("test mode");
         } else if (args[1].equals("1")) {
-            worker.readFile();
+            worker.map();
             worker.transferSM();
         } else if (args[1].equals("2")) {
             worker.reduceSM();
