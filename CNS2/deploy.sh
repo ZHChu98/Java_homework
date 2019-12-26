@@ -1,4 +1,5 @@
 #!/bin/bash
+t1=$(date +%s%N)
 if [ $1 = "compile" ]
 then
 	javac SLAVE.java
@@ -53,3 +54,5 @@ then
 	# collect
 	java -jar MASTER.jar
 fi
+t2=$(date +%s%N)
+echo `expr $t2 / 1000000 - $t1 / 1000000` "ms"

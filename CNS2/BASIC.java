@@ -48,7 +48,7 @@ public class BASIC {
             Map.Entry<String, Integer> entry = iter.next();
             data.add(new Word(entry.getKey(), entry.getValue().intValue()));
         }
-        System.out.println("finish reading files");
+        System.out.println("basic: finish reading files");
     }
 
     // Sort by frequencies (prior) and strings
@@ -69,7 +69,7 @@ public class BASIC {
                 }
             }
         }
-        System.out.println("finish sorting");
+        System.out.println("basic: finish sorting");
     }
 
     private static class Record {
