@@ -19,7 +19,7 @@ ssh -o "StrictHostKeyChecking=no" worker1
 * compile BASIC.jar SLAVE.jar MASTER.jar
 
 ```shell
-sh deploy.sh compile`
+sh deploy.sh compile
 ```
 
 or  
