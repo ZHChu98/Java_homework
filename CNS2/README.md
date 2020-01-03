@@ -2,29 +2,66 @@
 
 ## docker image
 
-`sudo docker pull yiping999/ub-jdk8:1.1`
+```shell
+sudo docker pull yiping999/ub-jdk8:1.1`
+```
 
 ## disable SSH check
 
-it seems this command doesn't work as expected  
-`ssh -o "StrictHostKeyChecking=no" worker1`
+it seems this command doesn't work as expected
+
+```shell
+ssh -o "StrictHostKeyChecking=no" worker1
+```
 
 ## usage
 
-compile BASIC.jar MASTER.jar SLAVE.jar  
-`sh deploy.sh compile`
+compile BASIC.jar SLAVE.jar MASTER.jar
 
-run BASIC.jar on a given directory  
-`sh deploy.sh basic dirName`
+```shell
+sh deploy.sh compile`
+```
 
-run MASTER.jar on a given directory  
-`sh deploy.sh master dirName`
+or  
 
-delete intermediate files inside containers  
-`sh clean.sh container`
+```shell
+sh deploy.sh compile basic
+sh deploy.sh compile slave
+sh deploy.sh compile master
+```
 
-delete intermediate and final files on the host  
-`sh clean.sh host`
+run BASIC.jar on a given directory
 
-stop all containers  
-`sh clean.sh stop`
+```shell
+sh deploy.sh basic dirName
+```
+
+run MASTER.jar on a given directory
+
+```shell
+sh deploy.sh master dirName
+```
+
+delete intermediate files inside containers
+
+```shell
+sh clean.sh container
+```
+
+delete intermediate and final files on the host
+
+```shell
+sh clean.sh host
+```
+
+stop all containers
+
+```shell
+sh clean.sh stop
+```
+
+delete all host generable files
+
+```shell
+sh clean.sh all
+```
